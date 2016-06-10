@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 	less = require('gulp-less'),
 	path = require('path'),
 	fs = require('fs'),
-	glob = require('glob');  // not sure why this doesn't work
+	glob = require('glob');
 
 gulp.task('server', function(next){
 	var server = express().use(express.static( __dirname + '/public' )).listen(port, next);
@@ -14,14 +14,6 @@ gulp.task('server', function(next){
 	console.log('Serving ' + 'http://localhost' + portStr);
 	open("http://localhost" + portStr, "chrome");
 });
-
-// gulp.task('less', function () {
-//   return gulp.src('./less/**/*.less')
-//     .pipe(less({
-//       paths: [ path.join(__dirname, 'less', 'includes') ]
-//     }))
-//     .pipe(gulp.dest('./public/css'));
-// });
 
 gulp.task('default', ['server'], function(){
 	var refresh = livereload();

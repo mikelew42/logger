@@ -1,18 +1,19 @@
 <!doctype html>
 <html>
 <head>
-	<title>Base</title>
-	<link rel="stylesheet" href="css/font-awesome.css">
+	<title>log.js</title>
 	<link rel="stylesheet" href="css/styles.css">
-	<script src="js/jquery-2.1.4.js"></script>
-	<script src="js/utils.js"></script>
-	<script src="js/store.js"></script>
-	<script src="js/newmodtpl.js"></script>
-	<script src="js/app.js"></script>
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	<script src="log.js"></script>
+	<script src="log.dev.js"></script>
 </head>
 <body>
-	<div class="parent">parent
-		<div class="child">child</div>
-	</div>
+	<h1>Logger</h1>
+	<ul>
+		<li><input id="afgCheckbox" type="checkbox" />Auto File Group</li>
+	</ul>
+	<ul>
+		<li><button onClick="log.tests.std()">std()</button></li>
+	</ul>
 </body>
 </html>
