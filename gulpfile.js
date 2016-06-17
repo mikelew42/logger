@@ -6,7 +6,8 @@ var gulp = require('gulp'),
 	less = require('gulp-less'),
 	path = require('path'),
 	fs = require('fs'),
-	glob = require('glob');
+	glob = require('glob'),
+	concat = require('gulp-concat-sourcemap');
 
 gulp.task('server', function(next){
 	var server = express().use(express.static( __dirname + '/public' )).listen(port, next);
@@ -15,7 +16,28 @@ gulp.task('server', function(next){
 	open("http://localhost" + portStr, "chrome");
 });
 
-gulp.task('default', ['server'], function(){
+gulp.task('build', function(){
+	gulp.src([
+		'./src/enter.js',
+		'./src/utils.js',
+		'./src/log.class.js',
+		'./src/var.class.js',
+		'./src/group.class.js',
+		'./src/closureGroup.class.js',
+		'./src/fileGroup.class.js',
+		'./src/functionGroup.class.js',
+		'./src/functionDefinition.class.js',
+		'./src/cbGroup.class.js',
+		'./src/cbDefinition.class.js',
+		'./src/logger.js',
+		'./src/loggerEvents.js',
+		'./src/exit.js',
+
+	]).pipe(concat('log.js'))
+	.pipe(gulp.dest('./public/'));
+});
+
+gulp.task('default', ['build', 'server'], function(){
 	var refresh = livereload();
 	console.log('watching');
 
@@ -31,4 +53,6 @@ gulp.task('default', ['server'], function(){
 			}))
 			.pipe(gulp.dest(path.dirname(file.path)));
 	});
+
+	gulp.watch('./src/*.js', ['build']);
 });

@@ -3,17 +3,24 @@
 <head>
 	<title>log.js</title>
 	<link rel="stylesheet" href="css/styles.css">
-	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 	<script src="log.js"></script>
-	<script src="log.dev.js"></script>
+	<script src="myScript.js"></script>
+	<script src="one.js"></script>
+	<script src="two.js"></script>
+	<script src="three.js"></script>
+	<script src="test1.js"></script>
+	<!-- // <script src="log.dev.js"></script> -->
 </head>
 <body>
 	<h1>Logger</h1>
 	<ul>
 		<li><input id="afgCheckbox" type="checkbox" />Auto File Group</li>
+		<li><input id="resizeCheckbox" type="checkbox" />Resize event</li>
+		<li><input id="docClickCheckbox" type="checkbox" />Specific docClick event</li>
 	</ul>
 	<ul>
-		<li><button onClick="log.tests.std()">std()</button></li>
+		<li><a href="#std">std()</a></li>
 	</ul>
 </body>
 </html>
