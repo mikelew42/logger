@@ -1,6 +1,4 @@
-import test from 'test';
-
-module.exports = {
+const is = {
 	arr: function(value){
 		return toString.call(value) === '[object Array]';
 	},
@@ -35,3 +33,5 @@ module.exports = {
 		return typeof value !== 'object' && !is.fn(value); // null, NaN, or other non-referential values?
 	}
 };
+
+export default is

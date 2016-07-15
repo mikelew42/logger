@@ -1,10 +1,6 @@
 import FunctionDefinition from "./FunctionDefinition"
 
-class CBDefinition extends FunctionDefinition {
-	constructor(){
-		this.assign.apply(this, arguments);
-		this.initialize();
-	}
+export default class CBDefinition extends FunctionDefinition {
 	wrapper(){
 		var def = this;
 		return function(){

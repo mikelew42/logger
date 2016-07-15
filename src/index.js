@@ -1,3 +1,2 @@
-import test from './test';
-
-console.log(test.test);
+import logger from "./logger"
+import loggerEvents from "./loggerEvents"

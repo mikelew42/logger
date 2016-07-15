@@ -3,10 +3,13 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
-  entry: './src/index.js',
+  entry: {
+    log: './src/index.js',
+    app: './src/material/app.js'
+  },
   output: {
     path: './public',
-    filename: 'log.js'
+    filename: '[name].js'
   },
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin()
@@ -17,7 +20,7 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel-loader',
       query: {
-      	presets: ['es2015']
+      	presets: ['es2015', 'react']
       }
     }]
   }

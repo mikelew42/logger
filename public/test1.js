@@ -1,4 +1,4 @@
-// oneA();
+oneA();
 // twoA();
 // threeA();
 
@@ -8,4 +8,4 @@
 
 // oneB();
 
-oneBW();
+// oneBW();

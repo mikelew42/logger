@@ -1,21 +1,6 @@
-var is = require('./is.js');
+import is from "./is"
 
-var Base = function Base(o){
-	this.assign(o);
-	this.initialize.apply(this, arguments);
-};
-
-Base.prototype.initialize = function(o, args){};
-
-Base.prototype.assign = function(o){
-	if (is.obj(o)){
-		for (var i in o)
-			this[i] = o[i];
-	}
-	return this;
-};
-
-var getBacktrace = function(){
+export const getBacktrace = function(){
 	var stack =
 		((new Error).stack + '\n');
 
@@ -51,7 +36,7 @@ var getBacktrace = function(){
 
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 var ARGUMENT_NAMES = /([^\s,]+)/g;
-function getParamNames(func) {
+export function getParamNames(func) {
   var fnStr = func.toString().replace(STRIP_COMMENTS, '');
   var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
   if(result === null)
@@ -59,11 +44,11 @@ function getParamNames(func) {
   return result;
 }
 
-var noop = function(){};
+export const noop = function(){};
 
 var bg = "background: #eee;";
 
-var styles = {
+export const styles = {
 	margin: "margin-left: 0px;",
 	padding: "padding: 3px 5px 2px;",
 	border: "border-bottom: 1px solid #ddd;",
@@ -72,7 +57,7 @@ var styles = {
 	indent: "12px"
 }
 
-var groupStyles = 
+export const groupStyles = 
 	styles.margin + 
 	styles.padding + 
 	styles.border + 
