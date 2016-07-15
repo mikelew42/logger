@@ -1,41 +1,7 @@
 // copyright 2016 Michael Lewis (lew42.com)
 ;(function(){
 
-var is = {
-	arr: function(value){
-		return toString.call(value) === '[object Array]';
-	},
-	obj: function(value){
-		return typeof value === "object" && !is.arr(value);
-	},
-	val: function(value){
-		return ['boolean', 'number', 'string'].indexOf(typeof value) > -1;
-	},
-	str: function(value){
-		return typeof value === "string";
-	},
-	num: function(value){
-		return typeof value === "number";
-	},
-	bool: function(value){
-		return typeof value === 'boolean';
-	},
-	fn: function(value){
-		return typeof value === 'function';
-	},
-	sfn: function(value){
-		return is.fn(value) && value.Base;
-	},
-	def: function(value){
-		return typeof value !== 'undefined';
-	},
-	undef: function(value){
-		return typeof value === 'undefined';
-	},
-	simple: function(value){ // aka non-referential
-		return typeof value !== 'object' && !is.fn(value); // null, NaN, or other non-referential values?
-	}
-};
+var is = require('./is.js');
 
 var Base = function Base(o){
 	this.assign(o);
@@ -384,52 +350,6 @@ FunctionGroup.prototype.assign({
 	}
 });
 
-
- 	var FunctionDefinition = function FunctionDefinition(){
- 		this.assign.apply(this, arguments);
- 		this.initialize();
- 	};
-
- 	FunctionDefinition.prototype = Object.create(Base.prototype);
-
- 	FunctionDefinition.prototype.assign({
- 		initialize: function(){
- 			this.resolveArgs();
- 		},
- 		resolveArgs: function(){
- 			if (is.str(this.arguments[0])){
- 				this.label = this.arguments[0];
- 				if (is.fn(this.arguments[1])){
- 					this.fn = this.arguments[1];
- 				}
- 			} else if (is.fn(this.arguments[0])){
- 				this.fn = this.arguments[0];
- 				if (this.fn.name)
- 					this.label = this.fn.name;
- 			}
-
- 			this.argNames = getParamNames(this.fn);
-
- 			this.line = this.trace.line;
- 			this.file = this.trace.file;
- 		},
- 		wrapper: function(){
- 			var def = this;
- 			return function wrapper(){
- 				if (!def.logger.log)
- 					return def.fn.apply(this, arguments);
-
- 				return new FunctionGroup({
- 					trace: getBacktrace()[2],
- 					def: def,
- 					fnArgs: arguments,
- 					ctx: this
- 				}).execute();
- 				return ret;
- 			};
- 		}
- 	});
-
 var CBGroup = function CBGroup(){
 	this.assign.apply(this, arguments);
 	this.initialize();
@@ -468,31 +388,6 @@ CBGroup.prototype.assign({
 		this.arguments = label;
 	}
 });
-
-
- 	var CBDefinition = function CBDefinition(){
- 		this.assign.apply(this, arguments);
- 		this.initialize();
- 	};
-
- 	CBDefinition.prototype = Object.create(FunctionDefinition.prototype);
-
- 	CBDefinition.prototype.assign({
- 		wrapper: function(){
- 			var def = this;
- 			return function(){
- 				if (!def.logger.log)
- 					return def.fn.apply(this, arguments);
- 				return new CBGroup({
- 					trace: getBacktrace()[2],
- 					afg: false,
- 					def: def,
- 					arguments: arguments,
- 					ctx: this
- 				}).execute();
- 			};
- 		}
- 	});
 
 function getLoggerBase(){
 	var logger = function(val){
