@@ -1,15 +1,13 @@
 
-wrappedGlobalFunction = log.wrapc(function wrappedGlozzzzbalFunction(){
+wrappedGlobalFunction = log.wrapc(function wrappedGlobalFunction(){
 	log("wrappedGlobalFunction in log.js");
 	globalFunction();
 	log("calling myFunc in app.js");
-	myFunc();
 	log("fn ending");
 });
 
 globalFunction = xlog.wrapc(function globalFunction(){
 	log('globalFunction, from log.js');
-	log("bt");
 	log.groupc('a group inside globalFunction', 1234, function(){});
 	log('whatup');
 	log.end();

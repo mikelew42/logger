@@ -1,2 +1,2 @@
-import logger from "./logger"
-import loggerEvents from "./loggerEvents"
+require("./logger");
+require("./loggerEvents");

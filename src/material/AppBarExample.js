@@ -1,12 +1,15 @@
-import React from 'react'
-import AppBar from 'material-ui/AppBar'
+var React = require('react');
+var AppBar = require('material-ui/AppBar').default;
 
-const AppBarExampleIcon = () => (
-  <AppBar
-    title="Title"
-    titleStyle={{ textTransform: "uppercase", fontWeight: "800" }}
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
-  />
-);
+var AppBarExampleIcon = function(){
+	return React.createElement(AppBar, {
+		title: "Title",
+		titleStyle: { 
+			textTransform: "uppercase",
+			fontWeight: "800"
+		},
+		iconClassNameRight: "muidocs-icon-navigation-expand-more"
+	});
+};
 
-export default AppBarExampleIcon;
+module.exports = AppBarExampleIcon;

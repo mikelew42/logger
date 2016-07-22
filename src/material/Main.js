@@ -1,12 +1,12 @@
-import React from 'react'
-import AppBarExample from './AppBarExample'
-import Content from './Content'
+var React = require('react');
+var AppBarExample = require('./AppBarExample');
+var Content = require('./Content');
 
-const Main = () => (
-	<div>
-		<AppBarExample />
-		<Content />
-	</div>
-);
+var Main = function(){
+	return React.createElement("div", {},
+		React.createElement(AppBarExample),
+		React.createElement(Content)
+	);
+};
 
-export default Main;
+module.exports = Main;

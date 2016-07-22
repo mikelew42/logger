@@ -1,4 +1,4 @@
-const is = {
+var is = {
 	arr: function(value){
 		return toString.call(value) === '[object Array]';
 	},
@@ -34,4 +34,4 @@ const is = {
 	}
 };
 
-export default is
+module.exports = is;

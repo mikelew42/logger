@@ -1,22 +1,16 @@
-import Log from "./Log"
-import { groupStyles } from "./utils"
+var Log = require("./Log");
+var groupStyles = require("./utils").groupStyles;
 
-export default class Var extends Log {
-	custom(){
+var Var = function Var(o){
+	this.assign(o).initialize();
+};
+
+Var.prototype = Object.create(Log.prototype);
+
+Var.prototype.assign({
+	custom: function(){
 		this.styled.push({ str: this.name + ":", styles: groupStyles });
 	}
-}
+});
 
-// var Var = function Var(){
-// 	this.assign.apply(this, arguments);
-// 	this.initialize();
-// };
-
-// Var.prototype = Object.create(Log.prototype);
-
-// Var.prototype.assign({
-// 	custom: function(){
-// 		this.styled.push({ str: this.name + ":", styles: groupStyles });
-// 	}
-// });
-
+module.exports = Var;

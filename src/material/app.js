@@ -1,23 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Main from './Main';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import AppBarExample from './AppBarExample'
+var React = require('react');
+var ReactDOM = require('react-dom');
+var MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default;
+var getMuiTheme = require('material-ui/styles/getMuiTheme').default;
+var Main = require('./Main');
+var injectTapEventPlugin = require('react-tap-event-plugin');
+var AppBarExample = require('./AppBarExample');
 injectTapEventPlugin();
 
-const muiTheme = getMuiTheme({
+var muiTheme = getMuiTheme({
 	fontFamily: "Open Sans"
 });
 
-const App = () => (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    <Main />
-  </MuiThemeProvider>
-);
+var App = function(){
+	return React.createElement(MuiThemeProvider, { muiTheme: muiTheme }, 
+		React.createElement(Main)
+	);
+};
 
 ReactDOM.render(
-  <App />,
+  React.createElement(App),
   document.getElementById('app')
 );

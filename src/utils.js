@@ -1,18 +1,28 @@
-import is from "./is"
+var is = require("./is");
 
-export const getBacktrace = function(){
+exports.getBacktrace = function(){
 	var stack =
 		((new Error).stack + '\n');
 
 		// console.log(stack);
 
-		stack = stack
-			.replace(/^\s+(at eval )?at\s+/gm, '') // remove 'at' and indentation
-			.replace(/^([^\(]+?)([\n$])/gm, '{anonymous}() ($1)$2')
-			.replace(/^Object.<anonymous>\s*\(([^\)]+)\)/gm, '{anonymous}() ($1)')
-			.replace(/^(.+) \((.+)\)$/gm, '$1```$2')
-			.split('\n')
-			.slice(1, -1);
+		stack = stack.replace(/^\s+(at eval )?at\s+/gm, '');
+		// console.log(stack);
+
+		stack = stack.replace(/^([^\(]+?)([\n$])/gm, '{anonymous}() ($1)$2');
+		// console.log(stack);
+
+		stack =	stack.replace(/^Object.<anonymous>\s*\(([^\)]+)\)/gm, '{anonymous}() ($1)');
+		// console.log(stack);
+
+		stack = stack.replace(/^(.+) \((.+)\)$/gm, '$1```$2');
+		// console.log(stack);
+
+		stack = stack.split('\n');
+		// console.log(stack);
+
+		stack = stack.slice(1, -1);
+		// console.log(stack);
 
 	var backtrace = [];
 
@@ -20,14 +30,21 @@ export const getBacktrace = function(){
 		stack[i] = stack[i].split('```');
 		var bt = {
 			func: stack[i][0],
-			fullPathAndLine: stack[i][1]
+			fullPathAndLine: stack[i][1],
+
 		};
 
-		var pathBreakdown = stack[i][1].split(':');
-		bt.file = pathBreakdown[1].replace(/^.*[\\\/]/, '');
-		bt.line = pathBreakdown[2];
-		bt.linePos = pathBreakdown[3];
+		// console.log(bt);
+		var lineAndPos = stack[i][1].match(/:\d+:\d+$/)[0].split(":");
+		var url = stack[i][1].replace(/:\d+:\d+$/, "");
+		// console.log(url, lineAndPos);
 
+		var pathBreakdown = stack[i][1].split(':');
+		// console.log(pathBreakdown);
+		bt.file = url.replace(/^.*[\\\/]/, '');
+		bt.line = lineAndPos[1];
+		bt.linePos = lineAndPos[2];
+		// console.log(bt);
 		backtrace.push(bt);
 	}
 // console.log(backtrace);
@@ -36,7 +53,7 @@ export const getBacktrace = function(){
 
 var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 var ARGUMENT_NAMES = /([^\s,]+)/g;
-export function getParamNames(func) {
+exports.getParamNames = function(func) {
   var fnStr = func.toString().replace(STRIP_COMMENTS, '');
   var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
   if(result === null)
@@ -44,20 +61,22 @@ export function getParamNames(func) {
   return result;
 }
 
-export const noop = function(){};
+exports.noop = function(){};
 
 var bg = "background: #eee;";
 
-export const styles = {
+var styles = {
 	margin: "margin-left: 0px;",
 	padding: "padding: 3px 5px 2px;",
 	border: "border-bottom: 1px solid #ddd;",
 	background: "background: #eee;",
 	line: "line-height: 16px;",
 	indent: "12px"
-}
+};
 
-export const groupStyles = 
+exports.styles = styles;
+
+exports.groupStyles = 
 	styles.margin + 
 	styles.padding + 
 	styles.border + 

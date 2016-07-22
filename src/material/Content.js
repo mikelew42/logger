@@ -1,7 +1,8 @@
-import React from 'react'
-import Paper from 'material-ui/Paper';
+var React = require('react');
+var Paper = require('material-ui/Paper').default;
+var e = React.createElement.bind(React);
 
-const style = {
+var style = {
   height: 100,
   width: "18%",
   margin: "1%",
@@ -9,14 +10,14 @@ const style = {
   display: 'inline-block',
 };
 
-const PaperExampleSimple = () => (
-  <div>
-    <Paper style={style} zDepth={1}>H</Paper>
-    <Paper style={style} zDepth={2} />
-    <Paper style={style} zDepth={3}>Huh?</Paper>
-    <Paper style={style} zDepth={4} />
-    <Paper style={style} zDepth={5} />
-  </div>
-);
+var PaperExampleSimple = function(){
+  return e("div", {}, 
+    e(Paper, {style: style, zDepth: 1}, "w"),
+    e(Paper, {style: style, zDepth: 2}, "t"),
+    e(Paper, {style: style, zDepth: 3}, "f"),
+    e(Paper, {style: style, zDepth: 4}),
+    e(Paper, {style: style, zDepth: 5})
+  );
+};
 
-export default PaperExampleSimple;
+module.exports = PaperExampleSimple;

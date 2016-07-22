@@ -1,11 +1,13 @@
-import Log from "./Log"
-import Group from "./Group"
-import FileGroup from "./FileGroup"
-import Var from "./Var"
-import ClosureGroup from "./ClosureGroup"
-import FunctionDefinition from "./FunctionDefinition"
-import CBDefinition from "./CBDefinition"
-import { noop, getBacktrace } from "./utils"
+var Log = require("./Log");
+var Group = require("./Group");
+var FileGroup = require("./FileGroup");
+var Var = require("./Var");
+var ClosureGroup = require("./ClosureGroup");
+var FunctionDefinition = require("./FunctionDefinition");
+var CBDefinition = require("./CBDefinition");
+var utils = require("./utils");
+var noop = utils.noop;
+var getBacktrace = utils.getBacktrace;
 
 function getLoggerBase(){
 	var logger = function(val){
@@ -68,7 +70,11 @@ var Logger = {
 	},
 	resetGroup: function(){
 		this.currentGroup = this.openGroups.pop();
-		this.currentFile = this.currentGroup.trace.file;
+		if (this.currentGroup.type === "functionGroup"){
+			this.currentFile = this.currentGroup.def.file;
+		} else {
+			this.currentFile = this.currentGroup.trace.file;
+		}
 	},
 	returnToGroup: function(group){
 		while ((this.currentGroup !== group) && (this.currentGroup.type !== "root")){

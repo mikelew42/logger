@@ -26,4 +26,21 @@ function twoB(){
 	log('end of twoB()');
 }
 
+twoBW = log.wrapc(function twoBW(){
+	log('inside twoBW()');
+	log('about to jump!');
+	threeA();
+	log('back to twoBW()');
+	log.groupc('this is a group');
+		log('about to jump!');
+		threeB();
+		log('back to twoB()');
+	log.end();
+	log('group ended');
+	log('about to jump!');
+	threeA();
+	log('back to twoBW()');
+	log('end of twoBW()');
+});
+
 // log('end of two.js');
