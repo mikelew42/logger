@@ -1,10 +1,16 @@
 var is = require("./is");
+var sMST = require("./sourcemapped-stacktrace");
 
 exports.getBacktrace = function(){
 	var stack =
 		((new Error).stack + '\n');
 
-		// console.log(stack);
+		// console.log('getBacktrace');
+		console.log(stack);
+		sMST.mapStackTrace(stack, function(newStack){
+			// console.log('result:');
+			console.log(newStack.join("\n").replace(new RegExp("webpack:///", "g"), "webpack:///./"))
+		});
 
 		stack = stack.replace(/^\s+(at eval )?at\s+/gm, '');
 		// console.log(stack);

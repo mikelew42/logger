@@ -1,7 +1,7 @@
 
 log.resize = true;
 
-if ($){
+if (typeof $ !== "undefined"){
 	$(document).ready(function(){
 		if (log.currentGroup.type === "root"){
 			log.rgroup("document.ready");
