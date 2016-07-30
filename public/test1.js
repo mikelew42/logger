@@ -1,13 +1,13 @@
 // unwrapped functions
-// oneA();
-// twoA();
-// threeA();
+oneA();
+twoA();
+threeA();
 
 // wrapped functions
-// oneW();
-// twoW();
-// threeW();
+oneW();
+twoW();
+threeW();
 
-// oneB();
+oneB();
 
 oneBW();

@@ -14,7 +14,7 @@ FunctionGroup.prototype.assign({
 	initialize: function(){
 		this.styled = [];
 		this.name = this.def.name;
-		this.defFile = this.def.trace.file;
+		// this.defFile = this.def.trace.file;
 		this.argNames = this.def.argNames;
 		this.logger = this.def.logger;
 		

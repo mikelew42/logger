@@ -1,3 +1,4 @@
 require("./logger");
-require("./loggerEvents");
-require("./test");
+// require("./loggerEvents");
+// require("./test");
+// log('how about now');

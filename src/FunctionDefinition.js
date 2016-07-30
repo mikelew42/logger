@@ -30,17 +30,28 @@ FunctionDefinition.prototype.assign({
 
 		this.argNames = getParamNames(this.fn);
 
-		this.line = this.trace.line;
-		this.file = this.trace.file;
+		this.line = this.trace && this.trace.line;
+		this.file = this.trace && this.trace.file;
 	},
 	wrapper: function(){
 		var def = this;
 		return function wrapper(){
+			var bt;
 			if (!def.logger.log)
 				return def.fn.apply(this, arguments);
 
+			bt = getBacktrace();
+
+			if (typeof module === "undefined"){
+				console.log('browser?');
+				bt = bt[2]
+			} else {
+				// console.log('server?');
+				bt = bt[1]
+			}
+
 			return new FunctionGroup({
-				trace: getBacktrace()[2],
+				trace: bt,
 				def: def,
 				fnArgs: arguments,
 				ctx: this

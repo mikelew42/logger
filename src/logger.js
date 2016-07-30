@@ -11,12 +11,23 @@ var getBacktrace = utils.getBacktrace;
 
 function getLoggerBase(){
 	var logger = function(val){
+		var bt;
 		if (!logger.log)
 			return val;
 
+		bt = getBacktrace();
+
+		if (typeof module === "undefined"){
+			console.log('browser?');
+			bt = bt[2]
+		} else {
+			// console.log('server?');
+			bt = bt[1]
+		}
+
 		new Log({
 			arguments: arguments,
-			trace: getBacktrace()[2],
+			trace: bt,
 			logger: logger
 		});
 		return val; // return 1st arg to be an "identity" fn 
@@ -87,7 +98,7 @@ var Logger = {
 			return name;
 
 		return new Group({
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			type: "user",
 			arguments: arguments,
 			logger: this
@@ -98,7 +109,7 @@ var Logger = {
 			return name;
 
 		return new Group({
-			trace: getBacktrace()[2], 
+			trace: getBacktrace()[1], 
 			type: "user",
 			arguments: arguments,
 			method: "groupCollapsed",
@@ -112,7 +123,7 @@ var Logger = {
 		this.closeAll();
 
 		return new Group({
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			type: "user",
 			arguments: arguments,
 			afg: false,
@@ -127,7 +138,7 @@ var Logger = {
 		this.closeAll();
 
 		return new Group({
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			type: "user",
 			arguments: arguments,
 			afg: false,
@@ -152,7 +163,7 @@ var Logger = {
 
 		new Var({
 			arguments: arguments,
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			name: name,
 			logger: this
 		});
@@ -167,7 +178,7 @@ var Logger = {
 			o = opts;
 		}
 
-		o.trace = getBacktrace()[2];
+		o.trace = getBacktrace()[1];
 		o.fn = fn;
 		o.logger = this;
 
@@ -180,7 +191,7 @@ var Logger = {
 			return fn;
 		}
 		var def = new FunctionDefinition({
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			fn: fn,
 			arguments: arguments,
 			expand: true,
@@ -195,7 +206,7 @@ var Logger = {
 			return fn;
 		}
 		var def = new FunctionDefinition({
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			fn: fn,
 			arguments: arguments,
 			logger: this
@@ -210,7 +221,7 @@ var Logger = {
 		}
 		var def = new CBDefinition({
 			cb: true,
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			fn: cb,
 			arguments: arguments,
 			expand: true,
@@ -226,7 +237,7 @@ var Logger = {
 		}
 		var def = new CBDefinition({
 			cb: true,
-			trace: getBacktrace()[2],
+			trace: getBacktrace()[1],
 			fn: cb,
 			arguments: arguments,
 			logger: this

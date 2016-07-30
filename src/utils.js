@@ -2,14 +2,16 @@ var is = require("./is");
 var sMST = require("./sourcemapped-stacktrace");
 
 exports.getBacktrace = function(){
+	// console.group('backtrace');
 	var stack =
 		((new Error).stack + '\n');
 
 		// console.log('getBacktrace');
-		console.log(stack);
+		// console.log(stack);
 		sMST.mapStackTrace(stack, function(newStack){
-			// console.log('result:');
-			console.log(newStack.join("\n").replace(new RegExp("webpack:///", "g"), "webpack:///./"))
+			// console.log(newStack.join("\n"));
+			stack = newStack.join("\n").replace(new RegExp("webpack:///", "g"), "webpack:///./");
+			// console.log(stack);
 		});
 
 		stack = stack.replace(/^\s+(at eval )?at\s+/gm, '');
@@ -39,21 +41,24 @@ exports.getBacktrace = function(){
 			fullPathAndLine: stack[i][1],
 
 		};
-
+// 
 		// console.log(bt);
-		var lineAndPos = stack[i][1].match(/:\d+:\d+$/)[0].split(":");
+		var lineAndPos = stack[i][1].match(/:\d+:\d+$/);
+		if (lineAndPos && lineAndPos[0])
+			lineAndPos = lineAndPos[0].split(":");
 		var url = stack[i][1].replace(/:\d+:\d+$/, "");
 		// console.log(url, lineAndPos);
 
 		var pathBreakdown = stack[i][1].split(':');
 		// console.log(pathBreakdown);
 		bt.file = url.replace(/^.*[\\\/]/, '');
-		bt.line = lineAndPos[1];
-		bt.linePos = lineAndPos[2];
-		// console.log(bt);
+		bt.line = lineAndPos && lineAndPos[1];
+		bt.linePos = lineAndPos && lineAndPos[2];
+		// console.log(bt.file, bt.line, bt.linePos);
 		backtrace.push(bt);
 	}
 // console.log(backtrace);
+// console.groupEnd();
 	return backtrace; //.slice(3);
 };
 

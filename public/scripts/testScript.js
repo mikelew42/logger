@@ -1,2 +1,2 @@
-log('yo');
-wrappedGlobalFunction();
+// log('yo');
+// wrappedGlobalFunction();

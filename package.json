@@ -1,5 +1,5 @@
 {
-  "name": "base",
+  "name": "logger",
   "scripts": {
     "server": "webpack-dev-server --inline --content-base public"
   },
